@@ -9,7 +9,6 @@
 
 using namespace dm;
 
-
 const u32 gen_concurrency = 16;
 const u32 nn = 10'000'000;
 
@@ -22,6 +21,19 @@ String output_path = "output.txt";
 
 int main(int argc, char* argv[])
 {
+    if (argc > 2)
+    {
+        std::cerr << "this program only accepts output_path (optional) as only one argument" << std::endl;
+        return 1;
+    }
+
+    if (argc == 2) {
+        output_path = argv[1];
+    }
+    else {
+        std::cout << "using default output_path " << output_path << ", you can pass custom path as argument" << std::endl;
+    }
+
     // 1. gen string
     String init_str = genString();
 
@@ -29,7 +41,7 @@ int main(int argc, char* argv[])
     auto t1 = std::chrono::steady_clock::now();
 
     // 3. gen and write all strings
-    FILE *file = std::fopen("output.txt", "w+");
+    FILE *file = std::fopen(output_path.c_str(), "w+");
     if (!file)
     {
         std::cerr << "error opening output file" << std::endl;

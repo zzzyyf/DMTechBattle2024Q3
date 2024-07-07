@@ -51,7 +51,7 @@ Producer::generateNextString()
 
     writeLength(len, dest);
     ::memcpy(dest+2, mSrcString.data()+2, len-2);
-    dest[len] = '\n';   // TODO change to '\0' after debug
+    dest[len] = '\0';   // TODO change to '\0' after debug
 
     return;
 }
